@@ -6,18 +6,28 @@ class CalculationsController < ApplicationController
 
     # ================================================================================
     # Your code goes below.
-    # The text the user input is in the string @text.
+    # The text the user input, is in the string @text. Variables that we will use.
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
+    text_split_into_array = @text.split
+    # text_split_into_array = text_split_into_array.downcase
+    text_without_characters = @text.sub(",./';:", "")
 
-    @word_count = "Replace this string with your answer."
+    text_without_space = text_without_characters.gsub(/\s+/, "")
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    punctuation_characters = @text.count ",./;':"
+    spaces = @text.count " "
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    word_count = text_split_into_array.count ",./;':"
 
-    @occurrences = "Replace this string with your answer."
+    @word_count = text_split_into_array.size
+
+    @character_count_with_spaces = @text.size
+
+    @character_count_without_spaces = @text.gsub(" ","").size
+
+    @occurrences =  @text.gsub(/[^a-z0-9\s]/i,"").split.count(@special_word.downcase)
 
     # ================================================================================
     # Your code goes above.
@@ -37,9 +47,14 @@ class CalculationsController < ApplicationController
     # The number of years the user input is in the integer @years.
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
+    monthly_rate=@apr/1200
+    time_in_months=@years*12
+    denominator=1-((1+monthly_rate))**-time_in_months
 
-    @monthly_payment = "Replace this string with your answer."
+    # =(E5/12)*E7/(1-(1+(E5/12))^-(12*12))
 
+    @monthly_payment=monthly_rate*@principal/denominator
+    
     # ================================================================================
     # Your code goes above.
     # ================================================================================
