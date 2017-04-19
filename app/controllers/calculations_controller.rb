@@ -12,6 +12,7 @@ class CalculationsController < ApplicationController
 
     text_split_into_array_with_characters = @text.split
     text_split_into_array = @text.sub(",./';:", "").split
+a ver prueba
 
 
 
