@@ -80,10 +80,10 @@ class CalculationsController < ApplicationController
 
     @seconds = (@ending - @starting).to_i
     @minutes = ((@ending - @starting)/60).to_i
-    @hours = @minutes/60.to_i
-    @days = @hours/24.to_i
-    @weeks = @days/7.to_i
-    @years = @weeks/52.to_i
+    @hours = @minutes/60.to_f
+    @days = @hours/24.to_f
+    @weeks = @days/7.to_f
+    @years = @weeks/52.to_f
 
 
     # ================================================================================
@@ -101,23 +101,31 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
     sum=0
-
-
-    @sorted_numbers = @numbers.shuffle
+    @sorted_numbers = @numbers.sort
     @count = @numbers.count
     @minimum = @numbers.min
     @maximum = @numbers.max
     @range = @numbers.max-@numbers.min
-    @median = "Replace this string with your answer."
+
+    middle=@count/2#.to_f
+    if @count.even?
+      median = (@numbers[middle]+@numbers[middle-1])/2
+    elsif
+      median = @numbers[middle]
+    end
+    @median = median
     @sum = @numbers.inject(0){|sum,x| sum+x}
     @mean = @sum/@count
-    diff_element_mean = @numbers.map{|i| i-@mean.to_i}
+
+    diff_element_mean = @numbers.map{|i| i-@mean.to_f}
     element_squared = diff_element_mean.map{|num| num **2}
     sum_squared = element_squared.inject(0){|sum,x| sum+x}
-    @variance =sum_squared/@count.to_i
-    # /@count)
-    @standard_deviation = @variance**0.5
-    @mode = "Replace this string with your answer."
+
+    @variance =(sum_squared/@count)
+    @standard_deviation = (@variance**0.5).round(2)
+
+
+    @mode = @numbers.uniq.max_by{|i| @numbers.count(i)}
 
     # ================================================================================
     # Your code goes above.
