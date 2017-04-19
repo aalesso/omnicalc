@@ -109,9 +109,9 @@ class CalculationsController < ApplicationController
 
     middle=@count/2#.to_f
     if @count.even?
-      median = (@numbers[middle]+@numbers[middle-1])/2
-    elsif
-      median = @numbers[middle]
+      median = (@sorted_numbers[middle]+@numbers[middle-1])/2
+    else
+      median = @sorted_numbers[middle]
     end
     @median = median
     @sum = @numbers.inject(0){|sum,x| sum+x}
