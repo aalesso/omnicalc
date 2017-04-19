@@ -100,27 +100,23 @@ class CalculationsController < ApplicationController
     # Your code goes below.
     # The numbers the user input are in the array @numbers.
     # ================================================================================
+    sum=0
 
-    @sorted_numbers = "Replace this string with your answer."
 
-    @count = "Replace this string with your answer."
-
-    @minimum = "Replace this string with your answer."
-
-    @maximum = "Replace this string with your answer."
-
-    @range = "Replace this string with your answer."
-
+    @sorted_numbers = @numbers.shuffle
+    @count = @numbers.count
+    @minimum = @numbers.min
+    @maximum = @numbers.max
+    @range = @numbers.max-@numbers.min
     @median = "Replace this string with your answer."
-
-    @sum = "Replace this string with your answer."
-
-    @mean = "Replace this string with your answer."
-
-    @variance = "Replace this string with your answer."
-
-    @standard_deviation = "Replace this string with your answer."
-
+    @sum = @numbers.inject(0){|sum,x| sum+x}
+    @mean = @sum/@count
+    diff_element_mean = @numbers.map{|i| i-@mean.to_i}
+    element_squared = diff_element_mean.map{|num| num **2}
+    sum_squared = element_squared.inject(0){|sum,x| sum+x}
+    @variance =sum_squared/@count.to_i
+    # /@count)
+    @standard_deviation = @variance**0.5
     @mode = "Replace this string with your answer."
 
     # ================================================================================
