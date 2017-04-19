@@ -10,7 +10,11 @@ class CalculationsController < ApplicationController
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
-    text_split_into_array = @text.split
+    text_split_into_array_with_characters = @text.split
+    text_split_into_array = @text.sub(",./';:", "").split
+
+
+
     # text_split_into_array = text_split_into_array.downcase
     text_without_characters = @text.sub(",./';:", "")
 
@@ -22,6 +26,7 @@ class CalculationsController < ApplicationController
     word_count = text_split_into_array.count ",./;':"
 
     @word_count = text_split_into_array.size
+    # @word_count = text_split_into_array.size
 
     @character_count_with_spaces = @text.size
 
@@ -54,7 +59,7 @@ class CalculationsController < ApplicationController
     # =(E5/12)*E7/(1-(1+(E5/12))^-(12*12))
 
     @monthly_payment=monthly_rate*@principal/denominator
-    
+
     # ================================================================================
     # Your code goes above.
     # ================================================================================
