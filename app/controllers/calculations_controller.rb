@@ -109,7 +109,7 @@ class CalculationsController < ApplicationController
 
     middle=@count/2#.to_f
     if @count.even?
-      median = (@sorted_numbers[middle]+@numbers[middle-1])/2
+      median = (@sorted_numbers[middle]+@sorted_numbers[middle-1])/2
     else
       median = @sorted_numbers[middle]
     end
