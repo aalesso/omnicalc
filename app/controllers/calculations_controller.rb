@@ -10,30 +10,26 @@ class CalculationsController < ApplicationController
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
-    text_split_into_array_with_characters = @text.split
-    text_split_into_array = @text.sub(",./';:", "").split
-a ver prueba
+    text_split_into_array_with_punctuation= @text.split
+    text_split_into_array_without_punctuation= @text.downcase.gsub(/[^a-z0-9\s]/i, '')
 
+    # text_split_into_array = @text.sub(",./';:", "").split
+    # # text_split_into_array = text_split_into_array.downcase
+    # text_without_characters = @text.sub(",./';:", "")
+    #
+    # text_without_space = text_without_characters.gsub(/\s+/, "")
 
+    # punctuation_characters = @text.count ",./;':"
+    # spaces = @text.count " "
+    #
+    # # word_count = text_split_into_array.count ",./;':"
 
-    # text_split_into_array = text_split_into_array.downcase
-    text_without_characters = @text.sub(",./';:", "")
-
-    text_without_space = text_without_characters.gsub(/\s+/, "")
-
-    punctuation_characters = @text.count ",./;':"
-    spaces = @text.count " "
-
-    word_count = text_split_into_array.count ",./;':"
-
-    @word_count = text_split_into_array.size
-    # @word_count = text_split_into_array.size
-
+    @word_count = text_split_into_array_without_punctuation.split.size
     @character_count_with_spaces = @text.size
 
     @character_count_without_spaces = @text.gsub(" ","").size
 
-    @occurrences =  @text.gsub(/[^a-z0-9\s]/i,"").split.count(@special_word.downcase)
+    @occurrences =  @text.downcase.gsub(/[^a-z0-9\s]/i,"").split.count(@special_word.downcase)
 
     # ================================================================================
     # Your code goes above.
@@ -81,12 +77,14 @@ a ver prueba
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+
+    @seconds = (@ending - @starting).to_i
+    @minutes = ((@ending - @starting)/60).to_i
+    @hours = @minutes/60.to_i
+    @days = @hours/24.to_i
+    @weeks = @days/7.to_i
+    @years = @weeks/52.to_i
+
 
     # ================================================================================
     # Your code goes above.
